@@ -1,0 +1,767 @@
+
+
+
+
+
+
+
+
+
+
+                             DOCUMENTATION FOR
+
+                              CHESS PLUS V2.0
+
+                           (C) 1993 N. MATHEWSON
+
+
+                             TABLE OF CONTENTS
+
+              Introduction
+Game Synposis....................................................1
+Hardward Requirements............................................1
+List of Files....................................................1
+
+              Instructions
+Rules of the Game................................................2
+    Setup........................................................2
+    Moves........................................................6
+    Endgame......................................................8
+How to use CHESSP.EXE............................................8
+    Starting Up..................................................8
+    Creating Pieces..............................................9
+    Making Moves.................................................9
+    Ending the Game..............................................10
+Hints, Suggestions, Random Thoughts..............................10
+
+              Information
+Registration.....................................................13
+History..........................................................14
+Upgrades in Future Releases......................................15
+How to modify CHESSP.CPQ.........................................15
+
+          CHESS PLUS, AND CHESSP.EXE, AND THE CHESSP20.ARJ PACKAGE,
+          ARE WORKS OF FICTION.  ANY RESEMBELANCE TO ACTUAL PERSONS,
+          EVENTS, OR PLACES IS STRICTLY UNINTENTIONAL.
+
+
+                                  PAGE 1
+
+Synopsis: CHESSP.EXE is an implementation of Chess Plus, a strategy game
+of my own design.  It is similar to chess in many respects, except that:
+          1. The board can be any size from 5X5 to 12X12.
+          2. The movements of each piece are not mandated by the rules,
+             but instead by the players.
+          3. All pieces (Except pawns) can be rotated.
+          4. Certain special pieces, called 'bombs,' can be 'exploded.'
+          5. It is possible for players to score points, and use these
+             points to create new pieces, as the game progresses.
+          6. The game ends, not with checkmate, but with the death or
+             capture of a king.
+As you can see, it isn't all that much like chess at all.
+
+Hardware: IBM or compatible computer (80286 or better prefered)
+          VGA monitor
+          Mouse with IBM-compatible driver (optional)
+
+Files included in archive: (if any are missing, you have NOT received
+                           the complete game.  If any are of different
+                           sizes than listed here, you may have received
+                           a modified version.)
+
+       *CHESSP.EXE   (105187 bytes) The EXE file.  The game itself.
+       *CHESSP.CPQ   (8281 bytes)   Contains a list of the quotations
+                                    which are displayed at the end of
+                                    games.  It is possible to modify
+                                    this file, and add your own
+                                    quotations.
+
+       *CHESSP.DOC                  This file. The one you are reading.
+       *REGISTER     (1541 bytes)   Form for registration of CHESS PLUS.
+                                    Type PRINT REGISTER at DOS prompt.
+
+        CPCODE.PGP   (46151 bytes) =\___These files are encrypted with
+        PASSWORD.PGP (205 bytes)   =/   PGP, an excellent freeware cipher
+                                    program.  They contain the source
+                                    code to CHESS PLUS, and passwords
+                                    available to registered users.  The
+                                    passwords to decode these files are
+                                    available only to registered users
+                                    of CHESS PLUS.  Of course, it is not
+                                    necessary to keep these files on
+                                    your disk if you don't plan to
+                                    register. (see registraton message.)
+
+YOU SHOULD COPY THESE FILES, OR AT LEAST THE ONES MARKED WITH A *, INTO
+A SUBDIRECTORY OF THEIR OWN.
+
+                                  PAGE 2
+
+Rules of the game:
+  SETUP
+
+    I have found, by experience, that most people can learn to play
+Chess Plus in ten or fiteen minutes.  This section is devoted to the
+rules of the game.  Those fortunate enough to already know the rules
+should feel free to skip ahead to the next section, which explains the
+interface to this computerized version.
+
+-First, the game is played by two players, Red and Green.  It is played
+ on a square board, subdivided into smaller squares, much like a
+ chessboard.  This board must be square, though it may measure anywhere
+ from 5X5 to 12X12.
+
+-Each player begins with a certain number of 'points,' the purpose of
+ which will be explained in a moment.  Players may agree upon almost any
+ number of points they wish, although the recommended value is 6 times n
+ points for a game on an nXn board.  In general, the more points a
+ player begins with, the more powerful his or her pieces.  Although not
+ 'illegal' as such, games of more than 12 times n points or fewer than 2
+ times n points tend to not be very much fun.
+
+-For handicapping purposes, players may choose to begin with unequal
+ amounts of points.
+
+-Each player begins with pieces on the two rows closest to them.  Their
+ second-closest row is filled with 'pawns' represented by large, filled
+ circles in the player's color (red or green).  On any turn, they may
+ either:  A. Move FORWARD ONLY, exactly one square, into an empty
+             location:
+            ---------------            ---------------
+                 I   I                      I X I
+                 I   I                      IXXXI
+                 I   I                      I X I
+            ---------------   becomes  ---------------
+                 I X I                      I   I
+                 IXXXI                      I   I
+                 I X I                      I   I
+            ---------------            ---------------
+          B. Or capture any enemy piece exactly one square forward, and
+             one square either to the right or the left:
+            ---------------            ---------------
+             I   I   I I I              I   I   I * I
+             I   I   I O I              I   I   I***I
+             I   I   I/ \I              I   I   I * I
+            ---------------   becomes  ---------------
+             I   I * I   I              I   I   I   I
+             I   I***I   I              I   I   I   I
+             I   I * I   I              I   I   I   I
+            ---------------            ---------------
+          C. When a pawn is captured, the player taking it receives
+             ONE POINT.
+          E. When a pawn reaches the final row on the board, and can
+             proceed no further, it is immediately removed from the
+             board, and its owner is awarded FIVE POINTS.
+
+                                  PAGE 3
+
+-At the start of the game, Red and Green 'create' pieces, in turns, in
+ the rows closest to them. Green always begins first.
+
+-A piece is created by selecting its 'moves.'  Each move has a
+ corresponding cost, which the player must pay for from his or her
+ supply of points.  Except where noted, pieces may possess these moves
+ in any combination.  A 'blank,' or moveless piece, is drawn as a small,
+ filled circle in its owner's color, in the center of a square. A real
+ piece is made by adding additional 'moves' to this circle.  These moves
+ moves can be either 'lines' or 'centers.' These consist of:
+                                 LINES
+          A. Short lines.  These are drawn from the edge of the central
+             circle, in any of the eight main compass directions, and
+             proceed half-way to the edge of the square.  Each one costs
+             ONE POINT, and allows the piece to move in the direction in
+             which the line faces, ONE SQUARE AT A TIME.  In other
+             words,
+               -------------
+               I           I would move like a King in ordinary chess,
+               I  \  I  /  I capable of moving one square at a time in
+               I   \ * /   I any of the eight directions.  Since it has
+               I  --***--  I eight short lines, it would cost 8 times 1
+               I   / * \   I equals 8 points.  Of course, this piece
+               I  /  I  \  I would be UNLIKE a traditional king in that
+               I           I its 'checkmate' would not bring to game to
+               ------------- a close.
+               -------------
+               I           I would move as like a 'Kin' in Japanese
+               I  \  I  /  I chess, moving one square at a time in any
+               I   \ * /   I direction, except for the two back
+               I  --***--  I diagonals.  Since it has six short lines,
+               I   / * \   I it would cost 6 times 1 equals 6 points.
+               I  /  I  \  I
+               I           I
+               -------------
+          B. Long lines.  These are drawn from the edge of the central
+             circle, in any of the eight main compass directions, and
+             proceed all of the way to the edge of the square.  Each one
+             costs TWO POINTS, and allows the piece to move in the
+             direction in which the line faces, as many squares as is
+             possible, without having to 'jump over' any pieces. In other
+             words,
+               -------------
+               I \   I   / I would be like a queen in traditional chess,
+               I  \  I  /  I capable of moving as far as it wished in
+               I   \ * /   I any direction, as long as it was not forced
+               I----***----I to 'jump over' any other piece.  Since it
+               I   / * \   I has eight long lines, it would cost 8 times
+               I  /  I  \  I 2 equals 16 points.
+               I /   I   \ I
+               -------------
+               -------------
+               I     I     I would combine the forward and lateral
+               I     I     I abilities of a rook with the backward
+               I     *     I abilities of a bishop; it could move
+               I----***----I 'North,' 'East,' 'West,' 'SE,' and 'SW' as
+               I   / * \   I far a possible without having to pass over
+               I  /     \  I any other piece.  With 5 long lines, it
+               I /       \ I would cost 5 times 2 equals 10 points.
+               -------------
+
+                                  PAGE 4
+
+               _____________ Combines both long and short lines, and
+               I \       / I would move like a 'Nari-Kaku' in Japanese
+               I  \  I  /  I chess, or like a cross between a king and
+               I   \ * /   I a bishop, able to move as far as it wanted
+               I   -***-   I to diagonally, (without jumping another
+               I   / * \   I piece) or exactly one square horizontally
+               I  /  I  \  I or vertically on any given turn.  Its cost
+               I /       \ I would be (4x2)+(4x1)=12 points.
+               -------------
+           C. Knight-moves. These begin at a diagonal edge of the
+              central circle, but then straighten out to go to the
+              edge of the piece, like this:
+               _____________
+                     I     I
+                     I     I
+                **   /     I
+             ...****/      I
+                   ...
+              A piece with one of these can, as a turn, move one square
+              in the direction of the diagonal line, followed by one
+              square in the direction of the straight line.  This is
+              exactly the same as a 'knight's move' in checkers, with
+              one important exception: the piece cannot jump over
+              intervening pieces. Knight-moves cost ONE POINT.
+               _____________
+               I   I   I   I would be a sort of 'jumpless knight,'
+               I   I   I   I capable of moving one square diagonal
+               I---\ * /---I plus one square orthagonal in any direction
+               I    ***    I as long as there were no intervening
+               I---/ * \---I pieces.  It would cost 8x1=8 points.
+               I   I   I   I
+               I   I   I   I
+               -------------
+               _____________
+               I   I   I   I would be like a 'Ka-Ma' in Japanese chess.
+               I   I   I   I It could move like a knight, but only
+               I   \ * /   I forward.  It would not be a true Ka-Ma,
+               I    ***    I though, being unable to jump.  Its cost
+               I     *     I would be a mere 2x1=2 points.
+               I           I
+               I           I
+               -------------
+               _____________
+               I   I I I   I combines both lines and knight-moves. It
+               I  \I I I/  I could move diagonally one square at a time,
+               I---\ * /---I horizonally or vertically as far as it
+               I----***----I wished, and knight-fasion in any way
+               I---/ * \---I possible.  It would cost (4x2)+(8x1)+(4x1)
+               I  /I I I\  I equals 8+8+4=20 points.
+               I   I I I   I
+               -------------
+
+                                  PAGE 5
+
+                                 CENTERS
+           D. Basic center.  This is the filled central circle which
+              every piece, until now, has had.  It costs NOTHING, and
+              indicates the fact that there is nothing particularly out
+              of the ordinaty about the piece in question.
+
+           E. Jump-center.  Instead of a filled circle, a hollow one
+              with a verticle line through the center of it indicates
+              that a piece can jump on certain moves:
+                Knight-moves: yes.
+                Short lines: no.
+                Long lines: yes, but only one square:
+                -------    -------    -------    -------
+                IXIYI I to I IYIXI or IXIYIZI to I IYIXI, capturing Z
+                -------    -------    -------    -------  are both OK,
+                                    but
+          ---------    ---------    ---------    ---------
+          IXI IYI I to I I IYIXI or IXIYI I I to I IYI IXI are both
+          ---------    ---------    ---------    --------- illegal.
+              Jump-centers cost 2 points each.
+               _____________
+               I   I    I  I moves exactly the same as does a knight
+               I   I    I  I in ordinary chess, including jumps. It
+               I---\ * /---I costs (8x1)+2=10 pts.
+               I    *I*    I
+               I---/ * \---I
+               I   I   I   I
+               I   I   I   I
+               -------------
+               _____________
+               I \ I I I / I is the MOST POWERFUL POSSIBLE PIECE in
+               I  \I I I/  I Chess Plus.  It can move exactly as a
+               I---\ * /---I knight in normal chess, or move as far
+               I----*I*----I as it wants in a straight line with no
+               I---/ * \---I jumps, or jump over a single square in
+               I  /I I I\  I any direction.  It costs a whopping
+               I / I I I \ I (8x2)+(8x1)+2=16+8+2=26 pts!
+               -------------
+
+                                  PAGE 6
+
+           F. Bomb-centers, which are indicated by an 'X' in the middle
+              of the hollow center.  A piece which is a bomb is capable
+              of, at any moment, 'exploding' in a self-sacrificing
+              kamakazi attack.  When this happens, all the pieces
+              surrounding it, no matter to whom they belong, are
+              effectually captured by the player opposite to them.  The
+              bomb itself is automatically captured by the enemy as
+              well.  A bomb-center costs 2 points.  NOTE: A PIECE CANNOT
+              BE HAVE BOTH A JUMP-CENTER AND A BOMB-CENTER!!!
+               _____________
+               I           I is a basic defensive piece.  Though it
+               I           I cannot move, it serves as an obstacle
+               I     *     I to its owner's opponent, who must be
+               I    *X*    I careful to never occupy any square
+               I     *     I adjacent to it.  It costs 2 points.
+               I           I
+               I           I
+               -------------
+               _____________
+               I \ I I I / I is perhaps the most stupid bomb possible.
+               I  \I I I/  I Although it is capable of moving in every
+               I---\ * /---I conceivable way (except for jumping) it
+               I----*X*----I would be foolhardy to detonate it, since it
+               I---/ * \---I is far too valuable (26 pts) to sacrifice.
+               I  /I I I\  I Keep your bombs at low point-levels.
+               I / I I I \ I
+               -------------
+
+           G. King-center.  Instead of a filled circle, the king's
+              center is hollow.  There is no extra cost for cost for
+              kings, though every play must create EXACTLY ONE.  A KING
+              CAN NIETHER JUMP, NOR BE A BOMB.
+
+- Players alternate creating pieces on their back rows, starting with
+  Green.  They do not need to spend all of their points, nor do they
+  need to fill the back row entirely.  It is possible, though not very
+  smart, to make a single, one-point piece, and nothing else.
+
+- The King is always the first piece created, and must be in the center
+  of the back row on an odd-by-odd board, or just to the right of it on
+  an even-by-even board.  Each player must have one and only one king.
+
+  MOVES
+
+- Green always moves first.  From then on, players move alternately, one
+  after the other.
+
+- On a player's move, they may either move an existing piece, explode a
+  bomb, rotate a piece, or create a new piece.
+
+                                  PAGE 7
+
+- Moving a Piece:
+           A. On players' turns, they may move any of their pieces in
+              any **legal** direction.  See above for information on
+              which directions are legal.
+           B. If a player captures a piece belonging to another player,
+              he or she receives all of that piece's points.
+           C. A player MAY NOT capture his or her own pieces.
+
+- Exploding a Bomb:
+           A. As a move, a player may detonate any piece of their color
+              that is a bomb.  This results in the immediate destruction
+              of any pieces in the eight surrounding squares, in
+              addition to the destruction of the bomb itself.
+           B. The points for all pieces removed from the board go to the
+              player opposite in color to the pieces.  For instance, if
+              Green explodes a 5-point bomb-piece, in the process
+              destroying a red 10-point piece and a green pawn, Green
+              receives 10 points for the piece it killed, while red
+              receives 5+1=6 points for the bomb, and for the pawn
+              destroyed in the explosion.  The bomb, the pawn, and the
+              red piece are all removed from the board.
+
+- Rotating a Piece:
+           A. Players, on their turns, may rotate any one of their
+              pieces that they choose.  Rotation must be either
+              clockwise or counterclockwise, in a multiple of 90
+              degrees.
+           B. Rotation counts as an entire move, and scores no points.
+
+- Creating a New Piece
+           A. Points captured over the course of the game, or left over
+              from creating pieces at the beginning of the game, are NOT
+              lost to the game forever.  As a move, a player may choose
+              to create a NEW piece of their color on either of the two
+              corner squares closest to them.  It is not legal to do
+              this on any other squares.
+           B. The player is 'charged' for the cost of the piece, in
+              points.  If the two back corner squares are filled, this
+              move is not possible.
+           C. Obviously, it is not possible to create a new King in this
+              way.
+
+                                  PAGE 8
+
+  ENDGAME
+
+- The game is over when one (or both) of the kings have been captured.
+  The player whose king is taken loses, and the player who captured it
+  wins.  Simple enough?
+
+- If both kings die in an explosion, niether player wins, and the game
+  is a draw.
+
+- If both players agree that there is no way for the game to be won
+  given the current situation on the board, or if they simply get board,
+  they may declare the game a draw, go away, and do something else.
+
+How to use CHESSP.EXE:
+
+    So far, the only topic has been the rules of the game.  This is all
+well and good, as long as you don't try to go off and do anything
+DRASTIC on your own, like trying to actuall play a game.  If you do, you
+will soon realise that Chess Plus is an almost impossible game to play,
+without the aid of a computer to help manipulate the boards, pieces, and
+points.  In order to make the game playable, I have written CHESSP.EXE
+in Borland C++.
+
+  STARTING UP.
+
+- The executable file to play Chess Plus is called CHESSP.EXE.  To run
+  it, type 'CHESSP' at the DOS prompt, then press the ENTER key.
+
+- You will see a title screen.  Once the title is done displaying,
+  press any key.  A heart-felt apeal for much-needed funds will appear.
+  After about ten seconds, a 'PRESS ANY KEY' message will appear at the
+  bottom of the screen.  Press any key, and you are ready to begin.
+
+- You will be prompted for a board-size, and starting potint for each
+  player. Enter your selections.
+
+- Next, you will receive the message '(M)ouse or (K)eyboard?'  If you
+  have a mouse currently installed on your computer, and you have a
+  mouse driver installed in memory, you may type 'M' in order to use
+  your mouse with Chess Plus.  If not, just type 'K' in order to use the
+  keyboard.
+
+                                  PAGE 9
+
+  CREATING PIECES
+
+- The board should appear, with rows of pawns in the proper locations.
+  Next, you and your opponent take turns creating pieces, beginning with
+  your kings.  In the center of the bottom row, there should be a green
+  circle.  (If there isn't you should check your computer, your copy of
+  CHESSP.EXE, your eyes, and your sanity, in that order.)  This circle
+  serves as a base for the Green King.
+
+- In order to select the movements of a piece, you use the schemactic
+  diagram in the lower right of the screen.
+
+- If you are using a mouse, you click on the white box corresponding to
+  whichever direction you want your piece to move.  If you are using a
+  keyboard, you type the character at the end of the corresponding line
+  in the diagram.
+
+- When you select a knight-move direction once, it will appear on the
+  piece being created.  When you select it again, it will disappear.
+
+- When you select one of the eight main compass directions, a short line
+  will appear on the piece in that direction.  When you select it a
+  second time, a long line will appear.  When selected a third time, the
+  line is removed.
+
+- FOR NON-KINGS: The center of a piece may be formed by either clicking
+  in the central-circle of the diagram if you are using a mouse, or by
+  pressing '5' if you aren't.  First press: Jump.  Second press: bomb.
+  Third press: back to normal.
+
+- The cost of the piece at any given time is displayed above the
+  diagram.
+
+- To finish construction of a piece, press return (keyboard) or click on
+  the 'DONE' box (mouse).
+
+- If the cost of the piece exceeds your current points, you will not be
+  allowed to exit.
+
+  MAKING MOVES
+
+- To select a piece for a move:
+         With a MOUSE: click on the piece, with the left button.
+    With the KEYBOARD: use the arrow keys to move the box over to the
+                       piece in question.  Press return.
+
+- If you have selected the wrong piece, either press ESC (keyboard) or
+  click with the right button (mouse)
+
+                                  PAGE 10
+
+- To select a move:
+         With a MOUSE: click on the move in the 'toolbox'.  The ARROW
+                       signigies movement, the X bombing, the
+                       'cloverleaf' picture of the board's four corners
+                       creation, and the three arcs rotation.
+    With the KEYBOARD: press the key next to the movement in question in
+                       the toolbox.
+
+- If you selected the arrow for motion, you must select a square on
+  which the piece should end its move.  If you selected the arrow by
+  mistake, press 'ESC' or click on the right button.
+
+- When you are through entering your move, you will be asked for
+  confirmation.  Press ENTER (keyboard) or click on the left button
+  (mouse) to execute your move.  Press ESC (keyboard) or click on the
+  right button (mouse) to abort, and select a different move.
+
+- Once the move has been confirmed, the computer will execute it
+  automatically.
+
+  ENDING THE GAME
+
+- The game ends automatically when one or both kings have been captured.
+
+- If you wish to end a game prematurely, either press 'Q' (keyboard) or
+  click on the tiny little picture of a disk in the upper right corner
+  of the screen (mouse).  You will be asked 'Are you sure? (Y/N)'  Type
+  'Y' to exit, or 'N' to return to the game.
+
+  HINTS, SUGGESTIONS, AND RANDOM THOUGHTS
+
+HINTS TO WIN, or Fifteen Pieces of Free Advice: You Get What You Pay For.
+  1. Always be alert!  Always be alert!  It's REALLY not very much fun
+     to lose because you weren't watching the board!  So... ALWAYS BE
+     ALERT!!!!!!!!!!!!
+  2. Don't think that you need to spread your points out evenly between
+     your pieces.  In a 40 point game on an 8x8 board, you won't do well
+     playing with eight 5-point pieces against an opponent with three or
+     four truly strong ones.  In fact, it probably isn't a very good
+     idea to make 8 pieces at all.
+  3. I ususally classify pieces mentally as being either 'throw-away,'
+     'important,' or 'in-between.'
+          - Throw-away pieces are disposable, usually six points or
+            under, and to be used in kamakazi attacks or defences.  Good
+            throw-away pieces can make or break a game: A piece in the
+            SW corner of the board, with long lines to the N and NE and
+            jump capabilities can wreck SERIOUS havok on your opponent's
+            development.
+          - Important pieces are high-point, often over 12 points, and
+            usually have jump abilities.  They are used in the bulk of
+            strategic maneuvering.  Think of them as the Queens and
+            Rooks of Chess Plus.
+
+                                  PAGE 11
+
+          - In-between pieces are not to be discounted.  Often between 6
+            and 12 points, they can -and should- make up a large portion
+            of your forces.  They usually have three or four lines.
+  4. Bombs should have low point values.  You can use them as either
+     'stationary' pieces, to leave like land mines on important
+     locations on the board, or as mobile pieces, to explode behind
+     enemy lines.
+  5. It is not necessary for every piece to be able to retreat.
+  6. When making your pieces, pay attention to your opponent's!  If you
+     see any vulnerabilities (or strengths) in his or her design,
+     exploit them!
+  7. When making pieces, remember: you're looking for performance, not
+     artistic appearance.
+  8. It is absolutely useless to make a piece with only short moves able
+     to jump.
+  9. Don't try to create a piece when you're low on points unless you
+     have some compelling reason to the contrary.
+ 10. As in Chess, in Chess Plus you should develop the center as early
+     as possible.  Unlike chess, you have the option to design pieces
+     with this in mind.  Do so.
+ 11. Every strategy you learned about chess is still right!  Sort of.
+     THINK about a strategy before you apply it!  Can you still fork
+     pieces and make sacrifices?  Of course!  Can you still checkmate a
+     king with two rooks?  That depends on what kind of a king...
+ 12. The bottom corner squares are not just a shipyards to construct new
+     pieces: If you're feeling particularly nasty, you can pop a piece
+     out of nowhere when your opponent least expects it.
+ 13. Don't create an ungainly piece with the expectation of rotating it
+     as often as possible.  This is seldom possible.  When it is, it is
+     either because of your amazing skill, or Luck.  Probably Luck.
+ 14. Though sacrificing a lower-point piece in favor of a higher-point
+     one is the normal practice, it is sometimes a good idea to
+     sacrifice the higher-point piece if it is particularly useless, or
+     inconvenient, or if the low-point one would be in a particulatly
+     good position.
+ 15. Read ordinary chess books for good strategies.
+
+SUGGESTIONS on FUN GAMES, or Some Additional Wierd Rules You Can Play By
+        If You Want But You Don't Really Have To Because While They're
+        Fun For A While They Can Start To Get Boring After A Few Games
+        But I Hope You Try One Or Two Anyway:
+                           Ways to restict the Rules
+  1. An ordinary game of chess has (king+queen+bishops+knights+rooks)=
+     8+16+2x8+2x10+2x8=8+16+16+20+16=76 points.  With this in mind, you
+     can:  A. Start out with an 8x8, 76 point game, and set up the
+              pieces as in ordinary chess.  Play normally from then on.
+
+                                  PAGE 12
+
+           B. Same as in A, except that new pieces may only be created
+              in the forms of ordinary chess pieces.
+           C. Begin with a few points less than 76, and make a few
+              pieces defective.
+           D. Begin with a few points more than 76, and give extra
+              abilities to a few pieces.
+           E. Play on a 10x10 board, beginning with x points more than
+              76, and use them to create new pieces OF YOU THE PLAYER'S
+              CHOICE alongside to your ordinary king and queen.
+           F. Have one player receive 76 points and play with ordinary
+              chess-men only, as in B, while the other receives few
+              points, yet may spend them however he or she wants.
+  2. Play a game where only one or two types of pieces may be created.
+     Here are a few 'good choices' for this scenario:
+   _____________ _____________ _____________ _____________ _____________
+   I           I I     I     I I \       / I I \   I   / I I \   I   / I
+   I     I     I I     I     I I  \     /  I I  \  I  /  I I  \  I  /  I
+   I     *     I I     *     I I   \ * /   I I   \ * /   I I   \ * /   I
+   I----***----I I   -***-   I I    ***    I I    *I*    I I    *X*    I
+   I     *     I I     *     I I     *     I I   / * \   I I     *     I
+   I     I     I I     I     I I     I     I I   I   I   I I           I
+   I           I I     I     I I     I     I I   I   I   I I           I
+   --'Lateral'-- --'Vertical'- ----'Fork'--- -----'Bob'--- --'Suicide'--
+   _____________ _____________ _____________ _____________ _____________
+   I \ I I I / I I     I     I I   I   I   I I \ I I I / I I           I
+   I  \I I I/  I I     I     I I   I   I   I I  \I I I/  I I     I     I
+   I---\ * /---I I     *     I I   \ * /   I I   \ * /   I I     *     I
+   I----*I*----I I    ***    I I----*I*----I I----*I*----I I    ***    I
+   I---/ * \---I I     *     I I   / * \   I I     *     I I     *     I
+   I  /I I I\  I I     I     I I   I   I   I I     I     I I           I
+   I / I I I \ I I     I     I I   I   I   I I     I     I I           I
+   --'Maharaja'- ---'Arrow'--- ---'Star'---- -'Power-fork' ---'Minim'---
+  3. Play a set of games where every time a player loses, he/she
+     receives 2 more points, and the winner receives 2 less.
+  4. Make a rule that a player is NOT allowed to capture their
+     opponent's king unless they are currently ahead in points.
+  5. Give a single characteristic (bomb, jump) to EVERY PIECE.
+  6. Make a rule that all pieces must be within a specific point-spread.
+
+                                  PAGE 13
+
+REGISTRATION
+
+  " If you like this program, please send $10 to:
+                         Nick Mathewson
+                         [1992 Address Redacted]
+        (I can also be reached by E-MAIL on a few Connecticuit BBS's)"
+
+   There are many games currently where the author demands donations for
+his or her nefarious purposes on various pretexts.  Why should you
+register THIS one?
+   1. I am reasonably honest.  I know that this program is in NO WAY
+      worth any more than about $20 dollars, tops.
+   2. I am only asking for $10.
+   3. If you can't afford $10, I only want $5- or a friendly letter if
+      that's too much. (If you can't afford $10, though, how did you get
+      your computer?)
+   4. If you send me anything $5 or over, I'll send you passwords to
+      skip the shareware message at the start of the program.
+   5. If you send $10, and request it, I'll send you the SOURCE CODE to
+      Chess Plus (or just the passwords to decrypt it with PGP.EXE).
+   6. Donations encourage me to write future versions of this program.
+For a registration form, type PRINT REGISTER at the DOS prompt.
+
+---- Feel free, though, to use Chess Plus for free if you don't think
+     that my efforts are worth even $5.00.  There's NO need AT ALL to
+     feel the slightest twinge of guilt.
+
+                                  PAGE 14
+
+HISTORY OF CHESS PLUS:
+
+1989- In search of the perfect strategy game, I begin reading GAMES
+      ANCIENT AND ORIENTAL AND HOW TO PLAY THEM by Edward Falkener- a
+      truly excellent word which I recommend to anyone exploring the
+      world of bizarre strategy games.  In an attempt to take notes on
+      the movement-styles of the pieces in various chess-like games from
+      around the world, I invent the piece-diagram system.
+    - After a few months, it occurs to me that perhaps a viable game
+      could be played-USING THE NOTATION ITSELF!!
+    - An early-and needlessly complex- version of Chess Plus is played
+      for the first time.  Pennies are used as pawns (and to keep
+      score.)  Pieces are scribbled down on pieces of paper.  The board
+      is always 8x8, there are always 80 points, new pieces can be
+      created anywhere on the board, pieces can jump two squares, and
+      knight moves can be both short and long.
+    - After a few experimental games, the long knight moves, and point
+      limits are revoked, and pieces can only be made in the corner
+      squares.
+1990- With great exasperation, I began my efforts to program Chess Plus.
+      This decision came after becoming wholly frusterated by annoying
+      paper pieces that keep blowing around.
+    - After deciding on a general structure for the game, I began
+      programing Version 1.0 - On a Commodore 128.  The program ran at 1
+      megahertz.  To make matters worse, the only programing language
+      that I knew for the Commodore at the time was Basic.  The program
+      was hideously slow- it even needed to switch over into to text
+      mode in order to create a new piece.  This version was released,
+      but not widely spread.
+1991- I finally give up all hope for my *obsolete* Commodore, and
+      purchased an IBM AT compatible.  I programed Chess Plus, using
+      Turbo Pascal, in NEARLY its present form.  There was still no support
+      for boards of different sizes, nor was there any checking of moves.
+      Version 1.1 was never released, due to my disgust with Pascal as a
+      language, and my programming incompetance.
+    - I began to program in C++.  Fell in love.  Remembering my Pascal
+      interlude, I did not attempt to program chess plus until
+1992- CHESS PLUS V2.0 IS IMPLEMENTED.  It has variable board sizes and
+      error checking.  It supports only keyboard.
+January
+1993- Mouse support is added, quotation support is added, my library is
+      dredged for memorable quotes, the program is fully debugged, a
+      title screen is added, document files are written, password
+      support is added- AND CHESSP20.ARJ IS RELEASED!!!!!!!!!!!!
+
+                                  PAGE 15
+
+MODIFICATIONS IN FUTURE RELEASES:
+Changes/Additions to the rules of Chess Plus:
+          -Shooting pieces (maybe).
+          -Cannon pieces, as in Chinese Chess (perhaps)
+          -Oddly-shaped boards (I guess).
+          -Jumping kings (If is sounds like a good idea)
+          -Holes in the board (optional)
+          -Check/checkmate rules.
+          -Multiple kings.
+          -Pawns that move foward 2 squares.
+          -Variable values for moves and centers.
+          -Black-hole pieces that create holes in the board.
+          -Jumping bombs.
+          -anything else that I or any of my friends or any user of
+           Chess Plus can think of.
+Changes/additions to the actual program:
+          -Completely Re-engineered source code.
+          -Different keyboard interface
+          -Retouch 'enter-board-size-and-point' interfaces
+          -Animations
+          -Support for 'special' games, or for 'changing the rules'.
+          -Support for creating all pieces at once.
+          -Ability to save games, load games, and make transcripts of
+           the moves in a game.
+          -New 256 color title screen (maybe).
+          -Support for AD-LIB and Soundblaster cards (If I can think of
+           a good reason WHY.)
+          -Artificial-Intellegence computer opponents (If I somehow grow
+           an extra brain and become about ten zillion times as good at
+           programing as I am now.)
+
+HOW TO MODIFY CHESSP.CPQ
+  Do you know the interesting quotations that show up at the end of
+every game?  You can add your own!  To do this, use a text editor to
+modify CHESSP.CPQ.  All you need to know is that every quotation MUST
+end with an at-sign ('@'), and that the file itself must end with FOUR
+at-signs ('@@@@').  There can be at most 128 quotations; no quotation
+may occupy more than 1K (1024 characters.)
+
+
